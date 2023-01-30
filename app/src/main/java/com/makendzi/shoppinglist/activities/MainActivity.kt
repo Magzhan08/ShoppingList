@@ -1,7 +1,8 @@
-package com.makendzi.shoppinglist
+package com.makendzi.shoppinglist.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.makendzi.shoppinglist.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
