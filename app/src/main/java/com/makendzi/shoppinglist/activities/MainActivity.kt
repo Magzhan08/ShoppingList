@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import com.makendzi.shoppinglist.R
 import com.makendzi.shoppinglist.databinding.ActivityMainBinding
+import com.makendzi.shoppinglist.fragments.FragmentManager
+import com.makendzi.shoppinglist.fragments.NoteFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,13 +25,13 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MyTag", "Settings")
                 }
                 R.id.notes -> {
-                    Log.d("MyTag", "Notes")
+                    FragmentManager.setFragment(NoteFragment.newInstance(),this)
                 }
                 R.id.shop_list -> {
                     Log.d("MyTag", "Shoping List")
                 }
                 R.id.new_item -> {
-                    Log.d("MyTag", "New Item")
+                    FragmentManager.currentFragment?.onClickNew()
                 }
             }
             true
