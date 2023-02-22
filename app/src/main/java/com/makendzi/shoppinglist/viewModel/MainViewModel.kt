@@ -1,6 +1,7 @@
-package com.makendzi.shoppinglist.db
+package com.makendzi.shoppinglist.viewModel
 
 import androidx.lifecycle.*
+import com.makendzi.shoppinglist.db.MainDataBase
 import com.makendzi.shoppinglist.entities.NoteItem
 import kotlinx.coroutines.launch
 
