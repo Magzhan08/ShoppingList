@@ -11,7 +11,7 @@ import com.makendzi.shoppinglist.R
 import com.makendzi.shoppinglist.databinding.NoteListItemBinding
 import com.makendzi.shoppinglist.entities.NoteItem
 
-class NoteAdapter : ListAdapter<NoteItem,NoteAdapter.ItemHolder>(ItemComparator()) {
+class NoteAdapter(private val listener: Listener) : ListAdapter<NoteItem,NoteAdapter.ItemHolder>(ItemComparator()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -19,17 +19,23 @@ class NoteAdapter : ListAdapter<NoteItem,NoteAdapter.ItemHolder>(ItemComparator(
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position))
+        holder.setData(getItem(position), listener)
     }
 
 
     class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = NoteListItemBinding.bind(view)
 
-        fun setData(noteItem: NoteItem) = with(binding) {
+        fun setData(noteItem: NoteItem, listener: Listener) = with(binding) {
             tvTitle.text = noteItem.title
             tvDescription.text = noteItem.content
             tvTime.text = noteItem.time
+            itemView.setOnClickListener {
+                listener.onClickItem(noteItem)
+            }
+            imDelete.setOnClickListener {
+                listener.deleteItem(noteItem.id!!)
+            }
         }
         companion object{
             fun create(parent: ViewGroup): ItemHolder{
@@ -47,6 +53,11 @@ class NoteAdapter : ListAdapter<NoteItem,NoteAdapter.ItemHolder>(ItemComparator(
         override fun areContentsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean {
             return oldItem == newItem
         }
+    }
+
+    interface Listener{
+        fun deleteItem(id: Int)
+        fun onClickItem(note: NoteItem)
     }
 
 }
